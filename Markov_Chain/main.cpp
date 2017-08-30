@@ -5,6 +5,8 @@
 #include <fstream>
 #include <algorithm>
 #include <iterator>
+#include <stdexcept>
+
 using namespace std;
 bool isValidChar(char c) {
 	switch (c) {
@@ -40,15 +42,20 @@ int main() {
 	for (auto const &i : wordlist) { //Only need to read values and create key entry
 		if (chain.count(i) == 0) {
 			chain[i];
-			chain.at(i).push_back(wordlist[x+1]);
+			chain.at(i).push_back(wordlist[x + 1]);
+		}
+		else {
+			if (x+1 < wordlist.size()){
+				chain.at(i).push_back(wordlist[x + 1]);
+			}
 		}
 		x++;
 	}
 
 	for (auto i: chain) {
-		cout << i.first << ":";
+		cout << i.first << ":\n";
 		for (auto x : i.second) {
-			cout << x << endl;
+			cout << "\t" << x << endl;
 		}
 	}
 	system("pause");
